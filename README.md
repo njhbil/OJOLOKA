@@ -238,27 +238,4 @@ Password: pass123
 - [ ] Payment gateway integration
 - [ ] Machine learning untuk rekomendasi
 
-## 👨‍💻 Tim Pengembang
-
-- **Developer**: [Nama Developer]
-- **Institution**: [Nama Institusi]
-- **Course**: Struktur Data dan Algoritma
-- **Year**: 2024
-
-## 📄 Lisensi
-
-Project ini dilisensikan di bawah [MIT License](LICENSE).
-
-## 🤝 Kontribusi
-
-Kontribusi sangat diterima! Silakan buat pull request atau buka issue untuk saran dan perbaikan.
-
-## 📞 Kontak
-
-Untuk pertanyaan atau bantuan:
-- Email: [email@domain.com]
-- GitHub: [username]
-
----
-
 **OJOLOKA** - *Connecting People Through Technology* 🚀
