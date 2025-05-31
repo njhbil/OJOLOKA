@@ -1,0 +1,32 @@
+K001,Driver Joko,pass123,tersedia,Sudirman
+K002,Driver Sari,pass456,tersedia,Thamrin
+K003,Driver Agus,pass789,sibuk,Gatot Subroto
+K004,Driver Nina,pass321,tersedia,Kuningan
+K005,Driver Rudi,pass654,tersedia,Senayan
+K006,Driver Maya,maya123,tersedia,Kemang
+K007,Driver Budi,budi456,tersedia,Blok M
+K008,Driver Linda,linda789,tersedia,Pondok Indah
+K009,Driver Fajar,fajar321,tersedia,Cilandak
+K010,Driver Rina,rina654,tersedia,Kebayoran
+K011,Driver Doni,doni987,tersedia,Menteng
+K012,Driver Novi,novi246,tersedia,Cikini
+K013,Driver Hendra,hendra135,tersedia,Salemba
+K014,Driver Putri,putri579,tersedia,Matraman
+K015,Driver Rizky,rizky802,tersedia,Cawang
+K016,Driver Sari,sari468,tersedia,Duren Sawit
+K017,Driver Tony,tony913,tersedia,Klender
+K018,Driver Eka,eka357,tersedia,Rawamangun
+K019,Driver Bayu,bayu680,tersedia,Pulogadung
+K020,Driver Dina,dina124,tersedia,Jatinegara
+K021,Driver Iman,iman579,tersedia,Tebet
+K022,Driver Lusi,lusi246,tersedia,Pasar Minggu
+K023,Driver Ari,ari135,tersedia,Jagakarsa
+K024,Driver Wulan,wulan802,tersedia,Lenteng Agung
+K025,Driver Feri,feri468,tersedia,Depok
+K026,Driver Yanti,yanti913,tersedia,Cinere
+K027,Driver Agus,agus357,tersedia,Lebak Bulus
+K028,Driver Rita,rita680,tersedia,Fatmawati
+K029,Driver Joko,joko124,tersedia,Ampera
+K030,Driver Nina,nina579,tersedia,Kemang Utara
+K031,Driver Bobby,bobby246,tersedia,Radio Dalam
+K032,Driver Citra,citra135,tersedia,Panglima Polim

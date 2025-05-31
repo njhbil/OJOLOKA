@@ -1,0 +1,156 @@
+0,Warung Padang Sudirman,pass123,M001,Rendang,250000,Warung Padang Sudirman,pass123,M002,Ayam Pop,200000,Warung Padang Sudirman,pass123,M003,Gulai Kambing,300000,Warung Padang Sudirman,pass123,M004,Sate Padang,180000,Warung Padang Sudirman,pass123,M005,Dendeng Balado,350000,Warung Padang Sudirman,pass123,B001,Es Teh Manis,50000,Warung Padang Sudirman,pass123,B002,Es Jeruk,70000,Warung Padang Sudirman,pass123,B003,Kopi Hitam,80001,KFC Thamrin City,kfc456,M006,Ayam Crispy,180001,KFC Thamrin City,kfc456,M007,Burger Zinger,150001,KFC Thamrin City,kfc456,M008,Hot Wings,120001,KFC Thamrin City,kfc456,M009,Chicken Popcorn,100001,KFC Thamrin City,kfc456,M010,Fish Fillet,160001,KFC Thamrin City,kfc456,B004,Pepsi,60001,KFC Thamrin City,kfc456,B005,Orange Juice,80001,KFC Thamrin City,kfc456,B006,Ice Cream Float,120002,Pizza Hut Gatot Subroto,pizza789,M011,Pizza Margherita,450002,Pizza Hut Gatot Subroto,pizza789,M012,Pizza Pepperoni,500002,Pizza Hut Gatot Subroto,pizza789,M013,Pasta Carbonara,350002,Pizza Hut Gatot Subroto,pizza789,M014,Lasagna,400002,Pizza Hut Gatot Subroto,pizza789,M015,Garlic Bread,150002,Pizza Hut Gatot Subroto,pizza789,B007,Coca Cola,70002,Pizza Hut Gatot Subroto,pizza789,B008,Iced Tea,60002,Pizza Hut Gatot Subroto,pizza789,B009,Fresh Lemon,90003,Bakso Malang Kuningan,bakso321,M016,Bakso Urat,150003,Bakso Malang Kuningan,bakso321,M017,Bakso Jumbo,200003,Bakso Malang Kuningan,bakso321,M018,Mie Ayam,120003,Bakso Malang Kuningan,bakso321,M019,Pangsit Goreng,80003,Bakso Malang Kuningan,bakso321,M020,Siomay,100003,Bakso Malang Kuningan,bakso321,B010,Es Campur,120003,Bakso Malang Kuningan,bakso321,B011,Es Kelapa Muda,100003,Bakso Malang Kuningan,bakso321,B012,Jus Alpukat,150004,Starbucks Senayan City,star999,M021,Americano,250004,Starbucks Senayan City,star999,M022,Cappuccino,300004,Starbucks Senayan City,star999,M023,Croissant,200004,Starbucks Senayan City,star999,M024,Sandwich Club,350004,Starbucks Senayan City,star999,B013,Frappuccino,400004,Starbucks Senayan City,star999,B014,Green Tea Latte,320004,Starbucks Senayan City,star999,B015,Iced Coffee,280005,Sushi Tei Kemang,sushi555,M025,Salmon Sashimi,450005,Sushi Tei Kemang,sushi555,M026,California Roll,350005,Sushi Tei Kemang,sushi555,M027,Tempura,300005,Sushi Tei Kemang,sushi555,M028,Chicken Teriyaki,250005,Sushi Tei Kemang,sushi555,B016,Green Tea,80005,Sushi Tei Kemang,sushi555,B017,Sake,500005,Sushi Tei Kemang,sushi555,B018,Ramune,120006,McDonald's Blok M,mcd789,M029,Big Mac,22000
+6,McDonald's Blok M,mcd789,M030,Quarter Pounder,25000
+6,McDonald's Blok M,mcd789,M031,Chicken McNuggets,18000
+6,McDonald's Blok M,mcd789,M032,McFlurry,15000
+6,McDonald's Blok M,mcd789,B019,Coca Cola,8000
+6,McDonald's Blok M,mcd789,B020,Apple Juice,10000
+7,Solaria Pondok Indah,sol123,M033,Nasi Gudeg,20000
+7,Solaria Pondok Indah,sol123,M034,Ayam Bakar,25000
+7,Solaria Pondok Indah,sol123,M035,Gado-Gado,15000
+7,Solaria Pondok Indah,sol123,M036,Soto Ayam,18000
+7,Solaria Pondok Indah,sol123,B021,Es Teh,5000
+7,Solaria Pondok Indah,sol123,B022,Jus Mangga,12000
+8,Hoka Hoka Bento Cilandak,hoka456,M037,Chicken Teriyaki Bento,28000
+8,Hoka Hoka Bento Cilandak,hoka456,M038,Beef Yakiniku Bento,32000
+8,Hoka Hoka Bento Cilandak,hoka456,M039,Chicken Katsu,26000
+8,Hoka Hoka Bento Cilandak,hoka456,M040,Gyoza,15000
+8,Hoka Hoka Bento Cilandak,hoka456,B023,Ocha,8000
+8,Hoka Hoka Bento Cilandak,hoka456,B024,Ramune Soda,12000
+9,Gokana Kebayoran,goka789,M041,Gokana Ramen,25000
+9,Gokana Kebayoran,goka789,M042,Chicken Karaage,20000
+9,Gokana Kebayoran,goka789,M043,Gyoza,18000
+9,Gokana Kebayoran,goka789,M044,Takoyaki,15000
+9,Gokana Kebayoran,goka789,B025,Green Tea,8000
+9,Gokana Kebayoran,goka789,B026,Asahi Beer,25000
+10,Yoshinoya Menteng,yoshi321,M045,Beef Bowl,22000
+10,Yoshinoya Menteng,yoshi321,M046,Chicken Bowl,20000
+10,Yoshinoya Menteng,yoshi321,M047,Salmon Teriyaki,28000
+10,Yoshinoya Menteng,yoshi321,M048,Chicken Katsu,25000
+10,Yoshinoya Menteng,yoshi321,B027,Miso Soup,8000
+10,Yoshinoya Menteng,yoshi321,B028,Japanese Tea,6000
+11,Ayam Geprek Cikini,geprek111,M049,Ayam Geprek Original,15000
+11,Ayam Geprek Cikini,geprek111,M050,Ayam Geprek Keju,18000
+11,Ayam Geprek Cikini,geprek111,M051,Ayam Geprek Sambal Matah,17000
+11,Ayam Geprek Cikini,geprek111,M052,Nasi Putih,5000
+11,Ayam Geprek Cikini,geprek111,B029,Es Teh Manis,5000
+11,Ayam Geprek Cikini,geprek111,B030,Es Jeruk,8000
+12,Sate Khas Senayan Salemba,sate222,M053,Sate Ayam,20000
+12,Sate Khas Senayan Salemba,sate222,M054,Sate Kambing,25000
+12,Sate Khas Senayan Salemba,sate222,M055,Gule Kambing,30000
+12,Sate Khas Senayan Salemba,sate222,M056,Lontong,8000
+12,Sate Khas Senayan Salemba,sate222,B031,Es Kelapa,10000
+12,Sate Khas Senayan Salemba,sate222,B032,Teh Hangat,5000
+13,Warung Tegal Matraman,warteg333,M057,Ayam Goreng,12000
+13,Warung Tegal Matraman,warteg333,M058,Ikan Lele,10000
+13,Warung Tegal Matraman,warteg333,M059,Sayur Asem,8000
+13,Warung Tegal Matraman,warteg333,M060,Tempe Goreng,5000
+13,Warung Tegal Matraman,warteg333,B033,Es Teh,4000
+13,Warung Tegal Matraman,warteg333,B034,Kopi Tubruk,6000
+14,Richeese Factory Cawang,cheese444,M061,Fire Chicken,25000
+14,Richeese Factory Cawang,cheese444,M062,Cheese Burger,22000
+14,Richeese Factory Cawang,cheese444,M063,Loaded Fries,18000
+14,Richeese Factory Cawang,cheese444,M064,Chicken Wings,20000
+14,Richeese Factory Cawang,cheese444,B035,Soft Drink,8000
+14,Richeese Factory Cawang,cheese444,B036,Milkshake,15000
+15,Pecel Lele Duren Sawit,pecel555,M065,Pecel Lele,12000
+15,Pecel Lele Duren Sawit,pecel555,M066,Ayam Penyet,15000
+15,Pecel Lele Duren Sawit,pecel555,M067,Tempe Penyet,8000
+15,Pecel Lele Duren Sawit,pecel555,M068,Sambal Extra,3000
+15,Pecel Lele Duren Sawit,pecel555,B037,Es Teh,4000
+15,Pecel Lele Duren Sawit,pecel555,B038,Es Jeruk,7000
+16,Sop Buntut Klender,sopbuntut666,M069,Sop Buntut,35000
+16,Sop Buntut Klender,sopbuntut666,M070,Sop Iga,30000
+16,Sop Buntut Klender,sopbuntut666,M071,Gado-Gado Betawi,15000
+16,Sop Buntut Klender,sopbuntut666,M072,Kerupuk,5000
+16,Sop Buntut Klender,sopbuntut666,B039,Es Teh Manis,5000
+16,Sop Buntut Klender,sopbuntut666,B040,Es Kelapa,8000
+17,Nasi Gudeg Rawamangun,gudeg777,M073,Gudeg Jogja,18000
+17,Nasi Gudeg Rawamangun,gudeg777,M074,Ayam Kampung,15000
+17,Nasi Gudeg Rawamangun,gudeg777,M075,Sambal Krecek,8000
+17,Nasi Gudeg Rawamangun,gudeg777,M076,Areh,5000
+17,Nasi Gudeg Rawamangun,gudeg777,B041,Es Teh,4000
+17,Nasi Gudeg Rawamangun,gudeg777,B042,Wedang Jahe,6000
+18,Bebek Goreng Pulogadung,bebek888,M077,Bebek Goreng,25000
+18,Bebek Goreng Pulogadung,bebek888,M078,Bebek Bakar,28000
+18,Bebek Goreng Pulogadung,bebek888,M079,Nasi Liwet,12000
+18,Bebek Goreng Pulogadung,bebek888,M080,Lalapan,8000
+18,Bebek Goreng Pulogadung,bebek888,B043,Es Teh Manis,5000
+18,Bebek Goreng Pulogadung,bebek888,B044,Jus Jambu,10000
+19,Mie Ayam Jatinegara,mieayam999,M081,Mie Ayam Bakso,15000
+19,Mie Ayam Jatinegara,mieayam999,M082,Mie Ayam Ceker,18000
+19,Mie Ayam Jatinegara,mieayam999,M083,Pangsit Goreng,8000
+19,Mie Ayam Jatinegara,mieayam999,M084,Bakso Urat,12000
+19,Mie Ayam Jatinegara,mieayam999,B045,Es Teh,4000
+19,Mie Ayam Jatinegara,mieayam999,B046,Es Jeruk Peras,7000
+20,Gado-Gado Tebet,gadogado100,M085,Gado-Gado Betawi,15000
+20,Gado-Gado Tebet,gadogado100,M086,Ketoprak,12000
+20,Gado-Gado Tebet,gadogado100,M087,Rujak,10000
+20,Gado-Gado Tebet,gadogado100,M088,Kerupuk Melinjo,5000
+20,Gado-Gado Tebet,gadogado100,B047,Es Teh Manis,4000
+20,Gado-Gado Tebet,gadogado100,B048,Es Kelapa Muda,8000
+21,Rumah Makan Pasar Minggu,rm_minggu21,M089,Nasi Gudeg,18000
+21,Rumah Makan Pasar Minggu,rm_minggu21,M090,Ayam Bakar,22000
+21,Rumah Makan Pasar Minggu,rm_minggu21,M091,Pecel Lele,15000
+21,Rumah Makan Pasar Minggu,rm_minggu21,M092,Tahu Tempe Goreng,8000
+21,Rumah Makan Pasar Minggu,rm_minggu21,B049,Es Teh,5000
+21,Rumah Makan Pasar Minggu,rm_minggu21,B050,Jus Jeruk,10000
+22,Bakmi Jagakarsa,bakmi_jaga22,M093,Bakmi Ayam,16000
+22,Bakmi Jagakarsa,bakmi_jaga22,M094,Bakmi Jamur,14000
+22,Bakmi Jagakarsa,bakmi_jaga22,M095,Pangsit Rebus,12000
+22,Bakmi Jagakarsa,bakmi_jaga22,M096,Siomay Ayam,10000
+22,Bakmi Jagakarsa,bakmi_jaga22,B051,Es Teh Tawar,4000
+22,Bakmi Jagakarsa,bakmi_jaga22,B052,Kopi Tubruk,7000
+23,Warung Soto Lenteng Agung,soto_la23,M097,Soto Ayam,17000
+23,Warung Soto Lenteng Agung,soto_la23,M098,Soto Betawi,20000
+23,Warung Soto Lenteng Agung,soto_la23,M099,Gule Kambing,25000
+23,Warung Soto Lenteng Agung,soto_la23,M100,Kerupuk,5000
+23,Warung Soto Lenteng Agung,soto_la23,B053,Es Kelapa,8000
+23,Warung Soto Lenteng Agung,soto_la23,B054,Teh Hangat,6000
+24,A&W Depok Town Square,aw_depok24,M101,Root Beer Float,15000
+24,A&W Depok Town Square,aw_depok24,M102,Chicken Burger,20000
+24,A&W Depok Town Square,aw_depok24,M103,Curly Fries,12000
+24,A&W Depok Town Square,aw_depok24,M104,Onion Rings,10000
+24,A&W Depok Town Square,aw_depok24,B055,Root Beer,8000
+24,A&W Depok Town Square,aw_depok24,B056,Orange Juice,10000
+25,Nasi Uduk Cinere,uduk_cinere25,M105,Nasi Uduk Komplit,16000
+25,Nasi Uduk Cinere,uduk_cinere25,M106,Ayam Goreng Kremes,14000
+25,Nasi Uduk Cinere,uduk_cinere25,M107,Tempe Orek,6000
+25,Nasi Uduk Cinere,uduk_cinere25,M108,Kerupuk Udang,4000
+25,Nasi Uduk Cinere,uduk_cinere25,B057,Es Teh Manis,5000
+25,Nasi Uduk Cinere,uduk_cinere25,B058,Kopi Susu,8000
+26,Seafood Lebak Bulus,seafood_lb26,M109,Udang Bakar,35000
+26,Seafood Lebak Bulus,seafood_lb26,M110,Ikan Gurame Goreng,40000
+26,Seafood Lebak Bulus,seafood_lb26,M111,Cumi Goreng Tepung,28000
+26,Seafood Lebak Bulus,seafood_lb26,M112,Kangkung Belacan,12000
+26,Seafood Lebak Bulus,seafood_lb26,B059,Es Kelapa Muda,10000
+26,Seafood Lebak Bulus,seafood_lb26,B060,Teh Tawar,5000
+27,Bebek Goreng Fatmawati,bebek_fat27,M113,Bebek Goreng,28000
+27,Bebek Goreng Fatmawati,bebek_fat27,M114,Bebek Bakar,30000
+27,Bebek Goreng Fatmawati,bebek_fat27,M115,Sayur Asem,8000
+27,Bebek Goreng Fatmawati,bebek_fat27,M116,Lalapan,6000
+27,Bebek Goreng Fatmawati,bebek_fat27,B061,Es Teh,5000
+27,Bebek Goreng Fatmawati,bebek_fat27,B062,Es Jeruk,9000
+28,Mie Ayam Ampera,mieayam_amp28,M117,Mie Ayam Bakso,15000
+28,Mie Ayam Ampera,mieayam_amp28,M118,Mie Ayam Ceker,17000
+28,Mie Ayam Ampera,mieayam_amp28,M119,Bakso Urat,12000
+28,Mie Ayam Ampera,mieayam_amp28,M120,Pangsit Goreng,8000
+28,Mie Ayam Ampera,mieayam_amp28,B063,Es Teh Manis,4000
+28,Mie Ayam Ampera,mieayam_amp28,B064,Es Jeruk Nipis,7000
+29,Nasi Padang Kemang Utara,padang_ku29,M121,Rendang Daging,25000
+29,Nasi Padang Kemang Utara,padang_ku29,M122,Ayam Pop,18000
+29,Nasi Padang Kemang Utara,padang_ku29,M123,Gulai Tunjang,22000
+29,Nasi Padang Kemang Utara,padang_ku29,M124,Sambal Ijo,5000
+29,Nasi Padang Kemang Utara,padang_ku29,B065,Es Teh Tawar,4000
+29,Nasi Padang Kemang Utara,padang_ku29,B066,Es Jeruk,8000
+30,Cafe Radio Dalam,cafe_rd30,M125,Chicken Sandwich,22000
+30,Cafe Radio Dalam,cafe_rd30,M126,Caesar Salad,18000
+30,Cafe Radio Dalam,cafe_rd30,M127,Pasta Aglio Olio,20000
+30,Cafe Radio Dalam,cafe_rd30,M128,French Fries,12000
+30,Cafe Radio Dalam,cafe_rd30,B067,Iced Coffee,15000
+30,Cafe Radio Dalam,cafe_rd30,B068,Fresh Lemon,10000
+31,Pempek Panglima Polim,pempek_pp31,M129,Pempek Kapal Selam,16000
+31,Pempek Panglima Polim,pempek_pp31,M130,Pempek Lenjer,12000
+31,Pempek Panglima Polim,pempek_pp31,M131,Tekwan,14000
+31,Pempek Panglima Polim,pempek_pp31,M132,Es Kacang Merah,8000
+31,Pempek Panglima Polim,pempek_pp31,B069,Es Teh,5000
+31,Pempek Panglima Polim,pempek_pp31,B070,Kopi Item,7000

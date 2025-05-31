@@ -1,0 +1,32 @@
+0,Sudirman Plaza
+1,Thamrin City
+2,Gatot Subroto Mall
+3,Kuningan City
+4,Senayan City
+5,Kemang Village
+6,Blok M Square
+7,Pondok Indah Mall
+8,Cilandak Town Square
+9,Kebayoran Baru
+10,Menteng Central
+11,Cikini Gold Center
+12,Salemba Market
+13,Matraman Plaza
+14,Cawang Business Park
+15,Duren Sawit Mall
+16,Klender Shopping Center
+17,Rawamangun Square
+18,Pulogadung Trade Center
+19,Jatinegara City
+20,Tebet Eco Park
+21,Pasar Minggu Mall
+22,Jagakarsa Plaza
+23,Lenteng Agung Square
+24,Depok Town Square
+25,Cinere Mall
+26,Lebak Bulus Mall
+27,Fatmawati Plaza
+28,Ampera Plaza
+29,Kemang Utara Mall
+30,Radio Dalam Plaza
+31,Panglima Polim Square
