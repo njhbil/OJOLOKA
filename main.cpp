@@ -16,7 +16,7 @@ struct kurir
     string id_kurir;
     string nama;
     string password;
-    string statusKurir; // "tersedia", "sibuk"
+    string statusKurir;
     string lokasiSekarang;
 };
 
@@ -115,6 +115,35 @@ struct merchant
     menuStack popularMenu;
 };
 
+// History structures for Stack implementation
+struct historyItem
+{
+    string id_transaksi;
+    string jenis; // "makanan" atau "penumpang"
+    string tanggal;
+    string waktu;
+    string lokasi_asal;
+    string lokasi_tujuan;
+    string detail_pesanan;
+    float total_biaya;
+    string status; // "selesai", "dibatalkan"
+    string kurir_id;
+    string kurir_nama;
+    int rating;
+};
+
+struct historyNode
+{
+    historyItem data;
+    historyNode *next;
+};
+
+struct historyStack
+{
+    historyNode *top;
+    int size;
+};
+
 // Function declarations for order management
 void initOrderQueue(orderQueue *queue);
 void initMenuStack(menuStack *stack);
@@ -123,6 +152,15 @@ void displayOrders(orderQueue *queue);
 void updateOrderStatus(orderQueue *queue, string orderId, string newStatus);
 void tambahMakananBaru();
 void editHargaMakanan();
+
+// History Stack function declarations - LIFO implementation
+void initHistoryStack(historyStack *stack);
+void pushHistory(historyStack *stack, historyItem item);
+void tampilkanHistory(historyStack *stack);
+int findPenumpangIndex(string id_penumpang);
+int findKurirIndex(string id_kurir);
+void tambahHistoryPenumpang(string id_penumpang, historyItem item);
+void tambahHistoryKurir(string id_kurir, historyItem item);
 
 const int TABLE_SIZE = 100;
 merchant hashTableMerchant[TABLE_SIZE];
@@ -359,6 +397,11 @@ int jumlahPenumpang = 0;
 int jumlahKurir = 0;
 int jumlahLokasi = 0;
 int jumlahPesanan = 0;
+
+// History Stack arrays - LIFO (Last In First Out)
+historyStack historyPenumpang[MAX_PENUMPANG];
+historyStack historyKurir[MAX_KURIR];
+bool historyInitialized[MAX_PENUMPANG + MAX_KURIR] = {false};
 
 // Session variables
 penumpang *currentPenumpang = nullptr;
@@ -1632,7 +1675,7 @@ void pesanMakanan()
     for (int i = 0; i < maxTampil; i++)
     {
         // Hitung estimasi dan ongkir berdasarkan jarak
-        
+
         string statusKetersediaan;
 
         if (merchantTerdekat[i].jarak == 999999)
@@ -1838,9 +1881,7 @@ void pesanMakanan()
     cout << "| [SERVICE] Biaya Layanan      : Rp" << biayaLayanan << endl;
     cout << "+-----------------------------------------------------------+" << endl;
     cout << "| [TOTAL] TOTAL PEMBAYARAN     : Rp" << total << endl;
-    cout << "+============================================================+" << endl;
-
-    // Purchase confirmation
+    cout << "+============================================================+" << endl; // Purchase confirmation
     cout << "\n[CONFIRM] Konfirmasi pemesanan? (y/n): ";
     char konfirmasi;
     cin >> konfirmasi;
@@ -1887,7 +1928,26 @@ void pesanMakanan()
         enqueueOrder(&hashTableMerchant[hashIndex].orders, newOrder);
 
         kurirTerpilih->statusKurir = "sibuk";
-        jumlahPesanan++;
+        jumlahPesanan++; // Add to history stack for passenger (LIFO - Last In First Out)
+        historyItem newHistory;
+        newHistory.id_transaksi = orderId;
+        newHistory.jenis = "makanan";
+        newHistory.tanggal = "2025-06-02"; // Current date
+        newHistory.waktu = "12:00";        // Placeholder time
+        newHistory.lokasi_asal = hashTableMerchant[hashIndex].namaMerchant;
+        newHistory.lokasi_tujuan = dataLokasi[lokasiPengiriman].alamat;
+        newHistory.detail_pesanan = newOrder.nama_makanan;
+        newHistory.total_biaya = total;
+        newHistory.status = "menunggu";
+        newHistory.kurir_id = kurirTerpilih->id_kurir;
+        newHistory.kurir_nama = kurirTerpilih->nama;
+        newHistory.rating = 0;
+
+        // Push to global history stack using Stack (LIFO) implementation
+        tambahHistoryPenumpang(currentPenumpang->id_penumpang, newHistory);
+
+        // Also add to courier history
+        tambahHistoryKurir(kurirTerpilih->id_kurir, newHistory);
 
         cout << "\n+============================================================+" << endl;
         cout << "|                  [SUCCESS] PESANAN BERHASIL!              |" << endl;
@@ -1959,9 +2019,27 @@ void antarJemput()
             dataPesanan[jumlahPesanan].status = "menunggu";
             dataPesanan[jumlahPesanan].konfirmasi_customer = false;
             dataPesanan[jumlahPesanan].konfirmasi_kurir = false;
-
             kurirTerpilih->statusKurir = "sibuk";
             jumlahPesanan++;
+
+            // Add to history stack for both passenger and courier (LIFO - Last In First Out)
+            historyItem newHistory;
+            newHistory.id_transaksi = dataPesanan[jumlahPesanan - 1].id_pesanan;
+            newHistory.jenis = "penumpang";
+            newHistory.tanggal = "2025-06-02"; // Current date
+            newHistory.waktu = "12:00";        // Placeholder time
+            newHistory.lokasi_asal = dataLokasi[lokasiAsal].alamat;
+            newHistory.lokasi_tujuan = dataLokasi[lokasiTujuan].alamat;
+            newHistory.detail_pesanan = "Antar Jemput - " + to_string(jarak) + " km";
+            newHistory.total_biaya = tarif;
+            newHistory.status = "menunggu";
+            newHistory.kurir_id = kurirTerpilih->id_kurir;
+            newHistory.kurir_nama = kurirTerpilih->nama;
+            newHistory.rating = 0;
+
+            // Push to global history stacks using Stack (LIFO) implementation
+            tambahHistoryPenumpang(currentPenumpang->id_penumpang, newHistory);
+            tambahHistoryKurir(kurirTerpilih->id_kurir, newHistory);
 
             cout << "Pesanan berhasil dibuat!" << endl;
             cout << "ID Pesanan: " << dataPesanan[jumlahPesanan - 1].id_pesanan << endl;
@@ -1991,7 +2069,8 @@ void menuPenumpang()
         cout << "| 2. [RIDE] Antar Jemput             |" << endl;
         cout << "| 3. [LIST] Lihat Pesanan Aktif      |" << endl;
         cout << "| 4. [CONF] Konfirmasi Pesanan       |" << endl;
-        cout << "| 5. [EXIT] Logout                   |" << endl;
+        cout << "| 5. [HIST] Riwayat Pesanan (Stack)  |" << endl;
+        cout << "| 6. [EXIT] Logout                   |" << endl;
         cout << "+====================================+" << endl;
         cout << "> Pilihan Anda: ";
         cin >> pilihan;
@@ -2057,6 +2136,42 @@ void menuPenumpang()
                     cin.ignore();
                     getline(cin, dataPesanan[i].feedback);
                     cout << "[THX] Terima kasih atas feedback Anda!" << endl;
+
+                    // Update history status to completed with rating (Stack LIFO implementation)
+                    int passengerIndex = findPenumpangIndex(currentPenumpang->id_penumpang);
+                    int courierIndex = findKurirIndex(dataPesanan[i].kurirTerpilih->id_kurir);
+
+                    // Update history in both passenger and courier stacks
+                    if (passengerIndex != -1)
+                    {
+                        historyNode *current = historyPenumpang[passengerIndex].top;
+                        while (current != nullptr)
+                        {
+                            if (current->data.id_transaksi == idPesanan)
+                            {
+                                current->data.status = "selesai";
+                                current->data.rating = dataPesanan[i].rating;
+                                break;
+                            }
+                            current = current->next;
+                        }
+                    }
+
+                    if (courierIndex != -1)
+                    {
+                        historyNode *current = historyKurir[courierIndex].top;
+                        while (current != nullptr)
+                        {
+                            if (current->data.id_transaksi == idPesanan)
+                            {
+                                current->data.status = "selesai";
+                                current->data.rating = dataPesanan[i].rating;
+                                break;
+                            }
+                            current = current->next;
+                        }
+                    }
+
                     pesananDitemukan = true;
                     break;
                 }
@@ -2068,14 +2183,30 @@ void menuPenumpang()
         }
         else if (pilihan == 5)
         {
+            // View history using Stack (LIFO)
+            int index = findPenumpangIndex(currentPenumpang->id_penumpang);
+            if (index != -1)
+            {
+                tampilkanHistory(&historyPenumpang[index]);
+            }
+            else
+            {
+                cout << "\n[X] Error: Data penumpang tidak ditemukan!" << endl;
+            }
+            cout << "\n[BACK] Tekan Enter untuk kembali...";
+            cin.ignore();
+            cin.get();
+        }
+        else if (pilihan == 6)
+        {
             currentPenumpang = nullptr;
             cout << "\n[EXIT] Logout berhasil! Terima kasih telah menggunakan OJOLOKA!" << endl;
         }
         else
         {
-            cout << "[X] Pilihan tidak valid! Silakan pilih 1-5." << endl;
+            cout << "[X] Pilihan tidak valid! Silakan pilih 1-6." << endl;
         }
-    } while (pilihan != 5);
+    } while (pilihan != 6);
 }
 
 void menuKurir()
@@ -2090,7 +2221,8 @@ void menuKurir()
         cout << "| 2. [PICK] Konfirmasi Lokasi Pickup |" << endl;
         cout << "| 3. [DEST] Konfirmasi Lokasi Tujuan |" << endl;
         cout << "| 4. [STAT] Update Status Kurir      |" << endl;
-        cout << "| 5. [EXIT] Logout                   |" << endl;
+        cout << "| 5. [HIST] Riwayat Pesanan (Stack)  |" << endl;
+        cout << "| 6. [EXIT] Logout                   |" << endl;
         cout << "+====================================+" << endl;
         cout << "> Pilihan Anda: ";
         cin >> pilihan;
@@ -2360,14 +2492,30 @@ void menuKurir()
         }
         else if (pilihan == 5)
         {
+            // View history using Stack (LIFO)
+            int index = findKurirIndex(currentKurir->id_kurir);
+            if (index != -1)
+            {
+                tampilkanHistory(&historyKurir[index]);
+            }
+            else
+            {
+                cout << "\n[X] Error: Data kurir tidak ditemukan!" << endl;
+            }
+            cout << "\n[BACK] Tekan Enter untuk kembali...";
+            cin.ignore();
+            cin.get();
+        }
+        else if (pilihan == 6)
+        {
             currentKurir = nullptr;
             cout << "\n[EXIT] Logout berhasil! Terima kasih telah menggunakan OJOLOKA!" << endl;
         }
         else
         {
-            cout << "[X] Pilihan tidak valid! Silakan pilih 1-5." << endl;
+            cout << "[X] Pilihan tidak valid! Silakan pilih 1-6." << endl;
         }
-    } while (pilihan != 5);
+    } while (pilihan != 6);
 }
 
 void menuMerchant()
@@ -2543,7 +2691,7 @@ void menuMerchant()
             cout << "\n+============================================================+" << endl;
             cout << "|                   [LOGOUT] LOGOUT BERHASIL                |" << endl;
             cout << "|            Terima kasih telah menggunakan OJOLOKA!        |" << endl;
-            cout << "|                 Sampai jumpa lagi! [SHOP]                 |" << endl;
+            cout << "|                 Sampai jumpa lagi!                        |" << endl;
             cout << "+============================================================+" << endl;
         }
         else
@@ -2631,102 +2779,126 @@ makanan popPopularMenu(menuStack *stack)
     return empty;
 }
 
-void displayOrders(orderQueue *queue)
+// ===== HISTORY STACK FUNCTIONS - LIFO IMPLEMENTATION =====
+
+void initHistoryStack(historyStack *stack)
 {
-    if (queue->front == nullptr)
+    stack->top = nullptr;
+    stack->size = 0;
+}
+
+void pushHistory(historyStack *stack, historyItem item)
+{
+    historyNode *newNode = new historyNode();
+    newNode->data = item;
+    newNode->next = stack->top;
+    stack->top = newNode;
+    stack->size++;
+}
+
+void tampilkanHistory(historyStack *stack)
+{
+    if (stack->top == nullptr)
     {
-        cout << "Tidak ada pesanan." << endl;
+        cout << "\n+============================================================+" << endl;
+        cout << "|                    [EMPTY] RIWAYAT KOSONG                 |" << endl;
+        cout << "|                Belum ada transaksi yang selesai           |" << endl;
+        cout << "+============================================================+" << endl;
         return;
     }
 
-    orderNode *current = queue->front;
-    int no = 1;
-    cout << "\n╔════════════════════════════════════════════════════════════╗" << endl;
-    cout << "║                    DAFTAR PESANAN                          ║" << endl;
-    cout << "╚════════════════════════════════════════════════════════════╝" << endl;
-
-    while (current != nullptr)
-    {
-        cout << no << ". ID Pesanan: " << current->data.id_pesanan << endl;
-        cout << "   Customer: " << current->data.nama_penumpang << endl;
-        cout << "   Item: " << current->data.nama_makanan << endl;
-        cout << "   Harga: Rp" << current->data.harga << endl;
-        cout << "   Status: " << current->data.status << endl;
-        if (!current->data.kurir_id.empty())
-        {
-            cout << "   Kurir: " << current->data.kurir_id << endl;
-        }
-        cout << "   ───────────────────────────────────────" << endl;
-        current = current->next;
-        no++;
-    }
-}
-
-void updateOrderStatus(orderQueue *queue, string orderId, string newStatus)
-{
-    orderNode *current = queue->front;
-    while (current != nullptr)
-    {
-        if (current->data.id_pesanan == orderId)
-        {
-            current->data.status = newStatus;
-            cout << "Status pesanan " << orderId << " diupdate ke: " << newStatus << endl;
-            return;
-        }
-        current = current->next;
-    }
-    cout << "Pesanan dengan ID " << orderId << " tidak ditemukan!" << endl;
-}
-
-void tambahMakananBaru()
-{
     cout << "\n+============================================================+" << endl;
-    cout << "|                [ADD] TAMBAH MAKANAN BARU                  |" << endl;
+    cout << "|                     [HISTORY] RIWAYAT PESANAN             |" << endl;
     cout << "+============================================================+" << endl;
 
-    makanan newMakanan;
+    historyNode *current = stack->top;
+    int nomor = 1;
 
-    cout << "[ID] ID Makanan Baru: ";
-    cin >> newMakanan.id_makanan;
-
-    // Check if food ID already exists
-    TreeNodeMakanan *existing = cariMakanan(currentMerchant->treeMakanan.root, newMakanan.id_makanan);
-    if (existing != nullptr)
+    while (current != nullptr)
     {
-        cout << "[X] ID Makanan sudah ada! Gunakan ID yang berbeda." << endl;
-        return;
+        cout << "+-----------------------------------------------------------+" << endl;
+        cout << "| [" << nomor << "] ID: " << current->data.id_transaksi << endl;
+        cout << "| [JENIS] " << current->data.jenis << endl;
+        cout << "| [TANGGAL] " << current->data.tanggal << " " << current->data.waktu << endl;
+        cout << "| [RUTE] " << current->data.lokasi_asal << endl;
+        cout << "|        -> " << current->data.lokasi_tujuan << endl;
+        cout << "| [PESANAN] " << current->data.detail_pesanan << endl;
+        cout << "| [BIAYA] Rp" << current->data.total_biaya << endl;
+        cout << "| [STATUS] " << current->data.status << endl;
+        if (!current->data.kurir_nama.empty())
+        {
+            cout << "| [KURIR] " << current->data.kurir_nama << " (" << current->data.kurir_id << ")" << endl;
+        }
+        if (current->data.rating > 0)
+        {
+            cout << "| [RATING] " << current->data.rating << "/5 bintang" << endl;
+        }
+        cout << "+-----------------------------------------------------------+" << endl;
+
+        current = current->next;
+        nomor++;
     }
 
-    cout << "[FOOD] Nama Makanan: ";
-    cin.ignore();
-    getline(cin, newMakanan.namaMakanan);
-    cout << "[PRICE] Harga (Rp): ";
-    cin >> newMakanan.harga;
+    cout << "\n[INFO] Total transaksi: " << stack->size << " (ditampilkan dari yang terbaru)" << endl;
+}
 
-    // Add to tree
-    addMakananToTree(&currentMerchant->treeMakanan, newMakanan);
-
-    cout << "\n[OK] Makanan berhasil ditambahkan!" << endl;
-    cout << "+-----------------------------------------------------------+" << endl;
-    cout << "| [FOOD] " << newMakanan.namaMakanan << endl;
-    cout << "| [ID] ID: " << newMakanan.id_makanan << endl;
-    cout << "| [PRICE] Harga: Rp" << newMakanan.harga << endl;
-    cout << "+-----------------------------------------------------------+" << endl;
-
-    // Add to popular menu stack (optional)
-    cout << "\n[POP] Tandai sebagai menu unggulan? (y/n): ";
-    char isPopular;
-    cin >> isPopular;
-
-    if (isPopular == 'y' || isPopular == 'Y')
+int findPenumpangIndex(string id_penumpang)
+{
+    for (int i = 0; i < jumlahPenumpang; i++)
     {
-        pushPopularMenu(&currentMerchant->popularMenu, newMakanan);
-        cout << "[STAR] Ditambahkan ke menu populer!" << endl;
+        if (dataPenumpang[i].id_penumpang == id_penumpang)
+        {
+            return i;
+        }
     }
+    return -1;
+}
 
-    cout << "\nTekan Enter untuk kembali...";
-    cin.ignore();
-    cin.get();
+int findKurirIndex(string id_kurir)
+{
+    for (int i = 0; i < jumlahKurir; i++)
+    {
+        if (dataKurir[i].id_kurir == id_kurir)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void tambahHistoryPenumpang(string id_penumpang, historyItem item)
+{
+    int index = findPenumpangIndex(id_penumpang);
+    if (index != -1)
+    {
+        // Initialize history stack if not already done
+        if (!historyInitialized[index])
+        {
+            initHistoryStack(&historyPenumpang[index]);
+            historyInitialized[index] = true;
+        }
+
+        // Push to stack (LIFO - Last In First Out)
+        pushHistory(&historyPenumpang[index], item);
+    }
+}
+
+void tambahHistoryKurir(string id_kurir, historyItem item)
+{
+    int index = findKurirIndex(id_kurir);
+    if (index != -1)
+    {
+        // Initialize history stack if not already done
+        int stackIndex = MAX_PENUMPANG + index;
+        if (!historyInitialized[stackIndex])
+        {
+            initHistoryStack(&historyKurir[index]);
+            historyInitialized[stackIndex] = true;
+        }
+
+        // Push to stack (LIFO - Last In First Out)
+        pushHistory(&historyKurir[index], item);
+    }
 }
 
 int main()
@@ -2866,4 +3038,236 @@ int main()
     } while (pilihan != 7);
 
     return 0;
+}
+
+// ===== IMPLEMENTASI FUNGSI YANG BELUM DIBUAT =====
+
+void tambahMakananBaru()
+{
+    cout << "\n+============================================================+" << endl;
+    cout << "|                [ADD] TAMBAH MAKANAN BARU                  |" << endl;
+    cout << "+============================================================+" << endl;
+
+    if (currentMerchant == nullptr)
+    {
+        cout << "[X] Error: Merchant tidak ditemukan!" << endl;
+        return;
+    }
+
+    makanan newMakanan;
+    bool makananValid = false;
+
+    // Validate ID Makanan
+    while (!makananValid)
+    {
+        cout << "[ID] ID Makanan: ";
+        cin >> newMakanan.id_makanan;
+
+        if (newMakanan.id_makanan.empty())
+        {
+            cout << "[X] ID Makanan tidak boleh kosong!" << endl;
+        }
+        else
+        {
+            // Check if ID already exists
+            TreeNodeMakanan *existing = cariMakanan(currentMerchant->treeMakanan.root, newMakanan.id_makanan);
+            if (existing != nullptr)
+            {
+                cout << "[X] ID Makanan sudah ada! Gunakan ID yang berbeda." << endl;
+            }
+            else
+            {
+                makananValid = true;
+            }
+        }
+    }
+
+    // Validate Nama Makanan
+    cout << "[NAMA] Nama Makanan: ";
+    cin.ignore();
+    getline(cin, newMakanan.namaMakanan);
+    while (newMakanan.namaMakanan.empty())
+    {
+        cout << "[X] Nama makanan tidak boleh kosong!" << endl;
+        cout << "[NAMA] Nama Makanan: ";
+        getline(cin, newMakanan.namaMakanan);
+    }
+
+    // Validate Harga
+    while (true)
+    {
+        cout << "[HARGA] Harga: Rp";
+        cin >> newMakanan.harga;
+        if (newMakanan.harga <= 0)
+        {
+            cout << "[X] Harga harus lebih dari 0!" << endl;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    // Confirmation
+    cout << "\n+-----------------------------------------------------------+" << endl;
+    cout << "|                    KONFIRMASI MAKANAN BARU                |" << endl;
+    cout << "+-----------------------------------------------------------+" << endl;
+    cout << "| [ID] ID: " << newMakanan.id_makanan << endl;
+    cout << "| [NAMA] Nama: " << newMakanan.namaMakanan << endl;
+    cout << "| [HARGA] Harga: Rp" << newMakanan.harga << endl;
+    cout << "+-----------------------------------------------------------+" << endl;
+    cout << "[CONFIRM] Tambahkan makanan ini? (y/n): ";
+    char konfirmasi;
+    cin >> konfirmasi;
+
+    if (konfirmasi == 'y' || konfirmasi == 'Y')
+    {
+        // Add to tree
+        addMakananToTree(&currentMerchant->treeMakanan, newMakanan);
+
+        // Add to popular menu stack (merchant can decide later which items are popular)
+        pushPopularMenu(&currentMerchant->popularMenu, newMakanan);
+
+        cout << "\n+============================================================+" << endl;
+        cout << "|                [SUCCESS] MAKANAN BERHASIL DITAMBAHKAN!    |" << endl;
+        cout << "+============================================================+" << endl;
+        cout << "| [ADDED] " << newMakanan.namaMakanan << endl;
+        cout << "| [ID] ID: " << newMakanan.id_makanan << endl;
+        cout << "| [PRICE] Harga: Rp" << newMakanan.harga << endl;
+        cout << "+============================================================+" << endl;
+        cout << "| [INFO] Total makanan: " << currentMerchant->treeMakanan.size << endl;
+        cout << "| [TIP] Makanan otomatis ditambahkan ke menu populer        |" << endl;
+        cout << "+============================================================+" << endl;
+    }
+    else
+    {
+        cout << "\n[CANCEL] Penambahan makanan dibatalkan!" << endl;
+    }
+
+    cout << "\n[BACK] Tekan Enter untuk kembali...";
+    cin.ignore();
+    cin.get();
+}
+
+void displayOrders(orderQueue *queue)
+{
+    cout << "\n+============================================================+" << endl;
+    cout << "|                   [ORDER] DAFTAR PESANAN                  |" << endl;
+    cout << "+============================================================+" << endl;
+
+    if (queue->front == nullptr)
+    {
+        cout << "| [EMPTY] Tidak ada pesanan saat ini                        |" << endl;
+        cout << "+============================================================+" << endl;
+        return;
+    }
+
+    orderNode *current = queue->front;
+    int count = 1;
+
+    while (current != nullptr)
+    {
+        cout << "+-----------------------------------------------------------+" << endl;
+        cout << "| " << count << ". [ORDER ID] " << current->data.id_pesanan << endl;
+        cout << "| [CUSTOMER] " << current->data.nama_penumpang
+             << " (ID: " << current->data.id_penumpang << ")" << endl;
+        cout << "| [FOOD] " << current->data.nama_makanan << endl;
+        cout << "| [PRICE] Rp" << current->data.harga << endl;
+        cout << "| [STATUS] " << current->data.status << endl;
+        cout << "| [COURIER] " << current->data.kurir_id << endl;
+        cout << "| [TIME] " << current->data.created_time << endl;
+
+        // Status indicator
+        if (current->data.status == "pending")
+        {
+            cout << "| [ACTION] >> PERLU DIPROSES <<" << endl;
+        }
+        else if (current->data.status == "ready")
+        {
+            cout << "| [ACTION] >> SIAP DIAMBIL KURIR <<" << endl;
+        }
+        else if (current->data.status == "completed")
+        {
+            cout << "| [ACTION] >> PESANAN SELESAI <<" << endl;
+        }
+
+        current = current->next;
+        count++;
+    }
+
+    cout << "+-----------------------------------------------------------+" << endl;
+    cout << "| [TOTAL] Total Pesanan: " << queue->size << endl;
+    cout << "+============================================================+" << endl;
+
+    // Show status summary
+    int pendingCount = 0, readyCount = 0, completedCount = 0;
+    current = queue->front;
+
+    while (current != nullptr)
+    {
+        if (current->data.status == "pending")
+            pendingCount++;
+        else if (current->data.status == "ready")
+            readyCount++;
+        else if (current->data.status == "completed")
+            completedCount++;
+        current = current->next;
+    }
+
+    cout << "\n[SUMMARY] Pending: " << pendingCount
+         << " | Ready: " << readyCount
+         << " | Completed: " << completedCount << endl;
+}
+
+void updateOrderStatus(orderQueue *queue, string orderId, string newStatus)
+{
+    if (queue->front == nullptr)
+    {
+        cout << "[X] Tidak ada pesanan untuk diupdate!" << endl;
+        return;
+    }
+
+    orderNode *current = queue->front;
+    bool found = false;
+
+    while (current != nullptr)
+    {
+        if (current->data.id_pesanan == orderId)
+        {
+            string oldStatus = current->data.status;
+            current->data.status = newStatus;
+            found = true;
+
+            cout << "\n+============================================================+" << endl;
+            cout << "|               [UPDATE] STATUS BERHASIL DIUPDATE!          |" << endl;
+            cout << "+============================================================+" << endl;
+            cout << "| [ORDER ID] " << orderId << endl;
+            cout << "| [CUSTOMER] " << current->data.nama_penumpang << endl;
+            cout << "| [FOOD] " << current->data.nama_makanan << endl;
+            cout << "| [OLD STATUS] " << oldStatus << endl;
+            cout << "| [NEW STATUS] " << newStatus << endl;
+            cout << "+============================================================+" << endl;
+
+            // Give appropriate message based on new status
+            if (newStatus == "ready")
+            {
+                cout << "| [NOTIF] Kurir akan segera mengambil pesanan               |" << endl;
+                cout << "| [ACTION] Siapkan pesanan untuk pickup                     |" << endl;
+            }
+            else if (newStatus == "completed")
+            {
+                cout << "| [NOTIF] Pesanan telah selesai                             |" << endl;
+                cout << "| [SUCCESS] Terima kasih atas pelayanan yang baik!          |" << endl;
+            }
+            cout << "+============================================================+" << endl;
+            break;
+        }
+        current = current->next;
+    }
+
+    if (!found)
+    {
+        cout << "\n[X] Pesanan dengan ID '" << orderId << "' tidak ditemukan!" << endl;
+        cout << "[TIP] Periksa kembali ID pesanan yang dimasukkan." << endl;
+    }
 }
