@@ -2065,11 +2065,11 @@ void menuPenumpang()
         cout << "\n+====================================+" << endl;
         cout << "|         MENU PENUMPANG             |" << endl;
         cout << "+====================================+" << endl;
-        cout << "| 1. [FOOD] Pesan Makanan           |" << endl;
+        cout << "| 1. [FOOD] Pesan Makanan            |" << endl;
         cout << "| 2. [RIDE] Antar Jemput             |" << endl;
         cout << "| 3. [LIST] Lihat Pesanan Aktif      |" << endl;
         cout << "| 4. [CONF] Konfirmasi Pesanan       |" << endl;
-        cout << "| 5. [HIST] Riwayat Pesanan (Stack)  |" << endl;
+        cout << "| 5. [HIST] Riwayat Pesanan          |" << endl;
         cout << "| 6. [EXIT] Logout                   |" << endl;
         cout << "+====================================+" << endl;
         cout << "> Pilihan Anda: ";
